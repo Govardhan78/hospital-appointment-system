@@ -16,16 +16,21 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://hospital-appointment-system-1-cnvf.onrender.com",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      process.env.CLIENT_URL,
-    ].filter(Boolean),
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  }),
+    credentials: true,
+  })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,18 +38,15 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "Hospital Appointment API is running 🏥",
-  });
+app.get("/", (_, res) => {
+  res.json({ success: true, message: "Hospital Appointment API is running 🏥" });
 });
 
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/appointments", appointmentRoutes);
 
-app.use((req, res) => {
+app.use((_, res) => {
   res.status(404).json({ success: false, message: "Route not found" });
 });
 
