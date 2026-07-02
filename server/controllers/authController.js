@@ -5,9 +5,16 @@ const { successResponse, errorResponse } = require("../utils/apiResponse");
 const register = async (req, res, next) => {
   try {
     const {
-      name, email, password, role, phone,
-      specialization, experience, availableDays,
-      dateOfBirth, bloodGroup,
+      name,
+      email,
+      password,
+      role,
+      phone,
+      specialization,
+      experience,
+      availableDays,
+      dateOfBirth,
+      bloodGroup,
     } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -33,7 +40,12 @@ const register = async (req, res, next) => {
 
     return successResponse(res, 201, "Registration successful", {
       token,
-      user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (error) {
     next(error);
@@ -43,6 +55,7 @@ const register = async (req, res, next) => {
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log("login call");
 
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await user.matchPassword(password))) {
@@ -57,7 +70,12 @@ const login = async (req, res, next) => {
 
     return successResponse(res, 200, "Login successful", {
       token,
-      user: { id: user._id, name: user.name, email: user.email, role: user.role },
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (error) {
     next(error);
