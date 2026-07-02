@@ -17,7 +17,14 @@ connectDB();
 const app = express();
 
 app.use(
-  cors({ origin: ["https://hospital-appointment-system-1-cnvf.onrender.com"] }),
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://hospital-appointment-system-1-cnvf.onrender.com",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
