@@ -2,6 +2,8 @@ const { validationResult } = require("express-validator");
 const { errorResponse } = require("../utils/apiResponse");
 
 const validate = (req, res, next) => {
+  console.log("avalidationn callled..");
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return errorResponse(res, 400, "Validation failed", errors.array());
