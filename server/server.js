@@ -16,7 +16,7 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -25,7 +25,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.get("/", (req, res) => {
-  res.json({ success: true, message: "Hospital Appointment API is running 🏥" });
+  res.json({
+    success: true,
+    message: "Hospital Appointment API is running 🏥",
+  });
 });
 
 app.use("/api/auth", authRoutes);
