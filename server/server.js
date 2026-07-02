@@ -20,8 +20,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://hospital-appointment-system-1-cnvf.onrender.com",
-    ],
+      process.env.CLIENT_URL,
+    ].filter(Boolean),
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   }),

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://hospital-appointment-system-m4hq.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_URL || "/api",
   headers: { "Content-Type": "application/json" },
 });
 
