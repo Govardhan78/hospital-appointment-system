@@ -16,7 +16,9 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: "*" }));
+app.use(
+  cors({ origin: ["https://hospital-appointment-system-1-cnvf.onrender.com"] }),
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
